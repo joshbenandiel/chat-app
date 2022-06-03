@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from 'react'
 import './App.css';
+import { Routes, Route } from 'react-router-dom'
+import { Home } from './components/HomeSection/Home';
+import { Login } from './components/LoginSection/Login';
+import { Signup } from './components/SignupSection/Signup';
+import { Chat } from './components/ChatSection/Chat';
+import { Navbar } from './components/NavbarSection/Navbar';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { AppContext, socket } from './context/appContext';
 
 function App() {
+
+
+  const [rooms, setRooms] = useState([])
+  const [currentRoom, setCurrentRoom] = useState([])
+  const [members, setMembers] = useState([])
+  const [message, setMessages] = useState([])
+  const [privateMsg, setPrivateMsg] = useState([])
+  const [newMessages , setNewMessages] = useState([])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={{socket,rooms, setRooms, currentRoom, setCurrentRoom, members, setMembers, message,setNewMessages,privateMsg,setPrivateMsg, setMessages,newMessages}}>
+      <div className="flex justify-center items-center flex-col">
+        <Navbar/>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/signup' element={<Signup/>}/>
+          <Route path='/chat' element={<Chat/>}/>
+        </Routes>
+      </div>
+    </AppContext.Provider>
   );
 }
 
