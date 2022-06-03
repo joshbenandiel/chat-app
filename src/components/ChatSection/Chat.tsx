@@ -120,7 +120,6 @@ export const Chat = () => {
             })}
             <h1 className='text-5xl font-bold'>Members</h1>
             {members && members.map((member: any) => {
-              console.log(member)
               return (
                 <div 
                   onClick={() => handlePrivateMsg(member)}
@@ -142,16 +141,29 @@ export const Chat = () => {
           <ChatBoxContainer>
             {message.map((data: any) => {
               return (
-                <div key={data._id}>
-                  <h1>{data._id}</h1>
-                  {data.messagesByDate.map((text: any,) => {
-                    return (
-                      <div key={text._id}>
-                        {text.content}
-                      </div>
-                    )
-                  })}
+                <>
+                <div className='chat-wrapper-text' key={data._id}>
+                  <div className='date-wrapper'>
+                    <h1>{data._id}</h1>
+                  </div>
                 </div>
+                {data.messagesByDate.map((text: any,) => {
+                  const nickname = text.from.name.split(' ')
+                  console.log(text)
+                  return (
+                    <div className={`chat-text-content ${user._id === text.from._id ? 'you' : ''}`} key={text._id}>
+                      <div className='chat-box-color'>
+                        <div className='chat-text-inner'>
+                          <img src={text.from.picture} alt="avatar" />
+                          <h1>{user.name === text.from.name ? 'You' : nickname[0]}:</h1>
+                        </div>
+                        <p className='text-md'>{text.content}</p>
+                        <p className='text-sm'>{text.time}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+                </>
               )
             })}
           </ChatBoxContainer>
