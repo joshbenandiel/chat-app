@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { LoginContainer, LoginWrapper } from '.'
 import { AppContext } from "../../context/appContext"
 import { useLoginUserMutation } from '../../services/appApi'
-import loginImage from './images/loginImage.jpg'
+import bg from '../HomeSection/images/image_processing20210528-29044-wrqyaj.gif'
 
 
 interface Form {
@@ -17,7 +17,8 @@ export const Login = () => {
     email: '',
     pass: '',
   })
-  const [loginUser, {isLoading, error}] = useLoginUserMutation();
+  const [loginUser, {isLoading, error}] = useLoginUserMutation<any>();
+
   const navigate = useNavigate()
   const {socket} = useContext(AppContext)
 
@@ -40,18 +41,17 @@ export const Login = () => {
   }
   return (
     <LoginContainer>
+      <img className='bg-login' src={bg} alt="background" />
       <LoginWrapper>
         <div>
-          <img src={loginImage} alt="online" />
-        </div>
-        <div>
+          {error && <div className='text-error-login'><h3>{error?.data}</h3></div>}
           <form className='flex flex-col gap-6' onSubmit={handleSubmit}>
             <label htmlFor="email">Email Address</label>
             <input name='email' placeholder='Enter Email Address' type="email" required onChange={handleChange}/>
             <label htmlFor="pass">Password</label>
             <input name='pass' placeholder='Enter Password'type="password" required onChange={handleChange}/>
-            <div>
-              <button className='rounded-full' type='submit'>Login</button>
+            <div className='button-wrapper-login'>
+              <button className='rounded-full' type='submit'>{isLoading ? 'Logging in...' : 'Login'}</button>
             </div>
           </form>
           <p>Don't have an account? 

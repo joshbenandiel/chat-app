@@ -21,7 +21,7 @@ function App() {
   const [newMessages , setNewMessages] = useState([])
   return (
     <AppContext.Provider value={{socket,rooms, setRooms, currentRoom, setCurrentRoom, members, setMembers, message,setNewMessages,privateMsg,setPrivateMsg, setMessages,newMessages}}>
-      <div className="flex justify-center items-center flex-col">
+      <div className="flex justify-center items-center flex-col relative w-full overflow-x-hidden">
         <Navbar/>
         <Routes>
           <Route path='/' element={<Home/>}/>

@@ -3,50 +3,62 @@ import styled from "styled-components";
 export const LoginContainer = styled.div`
   height: 100vh;
   width: 100%;
-  background-color: #1B2520;
+  background-color: #EBF4FB;
+  position: relative;
+
+  .bg-login {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 `
 export const LoginWrapper = styled.div`
-  color: #fff;
-  width: 80em;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding-top: 100px;
-  height: 100%;
-
-  div:nth-child(1){
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-
-    img {
-      border-radius: 12px;
-      height: 500px;
-      width: 100%;
-    }
+  color: #536774;
+  width: 30em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   
-  }
 
-  div:nth-child(2){
+
+  div:nth-child(1) {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    padding-left: 200px;
-
+    
+    .button-wrapper-login {
+      width: 100%;
+      text-align: center;
+    }
+    
+    .text-error-login {
+      width: 100%;
+      background-color: #ed4337;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     form {
       width: 100%;
       
+      label {
+        font-weight: bold;
+      }
 
       input {
-        background-color: transparent;
+        background-color: #fff;
         height: 40px;
         border-radius: 20px;
-        padding-left: 10px;
+        padding-left: 20px;
         border: none;
         outline: none;
-        border: 2px solid #53B2B7;
+        border: 2px solid #F24444;
       }
 
       div {
@@ -57,7 +69,8 @@ export const LoginWrapper = styled.div`
         button {
           height: 50px;
           width: 150px;
-          background: linear-gradient(90deg, rgba(48,221,161,1) 0%, rgba(90,184,159,1) 29%, rgba(82,177,186,1) 52%, rgba(209,218,94,1) 97%);
+          background-color: #F24444;
+          color: #fff;
         }
       }
     }

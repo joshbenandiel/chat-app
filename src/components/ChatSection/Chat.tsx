@@ -1,25 +1,35 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useContext, useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { AppContext } from "../../context/appContext"
 import { addNotification, resetNotification } from "../../features/userSlice"
 import { useDispatch } from "react-redux"
 import { ChatBoxContainer, ChatContainer, ChatInput, ChatWrapper } from '.'
-import {FiSend} from 'react-icons/fi'
-import {FaCircle} from 'react-icons/fa'
+import {FaCircle } from 'react-icons/fa'
+import { MdGroups , MdOutlineVideocam} from 'react-icons/md'
+import { BsSearch } from 'react-icons/bs'
+import { FiSend } from 'react-icons/fi'
+import { HiOutlinePhone }  from 'react-icons/hi'
+import { BsEmojiLaughing } from 'react-icons/bs'
+import { ImAttachment } from 'react-icons/im'
+import { useDebounce } from '../../hooks/debounce'
+
 
 
 export const Chat = () => {
   const user = useSelector((state: any) => state.user)
   const [messages, setMessage] = useState('')
   const dispatch = useDispatch()
+  const [userName, setUserName] = useState()
+
+
 
   const {socket, setMembers, members, setCurrentRoom, currentRoom, setRooms, privateMsg, setPrivateMsg, rooms, setMessages, message} = useContext(AppContext)
   socket.off('new-user').on('new-user', (payload : any) => {
     setMembers(payload);
   })
 
-
+ 
   useEffect(() => {
     if(user){
       setCurrentRoom('Room-1')
@@ -101,79 +111,158 @@ export const Chat = () => {
     const roomId = orderIds(user._id, member._id)
     joinRoom(roomId, false)
   }
+
+  const messagesEndRef = useRef<any>()
+
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [message, privateMsg, currentRoom]);
+  
+  const [searchUserText, setUserText] = useState<string>('');
+  const debounceValue = useDebounce(searchUserText, 300);
+
+  const handleSearch = (e: any) => {
+    const value = e.target.value.toLowerCase()
+    setUserText(value)  
+  }
+
+  useEffect(() => {
+    socket.emit('search-user', {
+      queryText: debounceValue
+    })
+
+    socket.on('search-user-result', (data: any) => {
+      setMembers(data)
+    })
+  }, [debounceValue])
+
   return (
     <ChatContainer>
       <ChatWrapper>
-        <div>
-        {user && (
-          <div className='side-content-chat'>
-            <h1 className='text-5xl font-bold'>Available Rooms</h1>
-            {rooms && rooms.map((room: any, index: any) => {
-              return (
-                <div 
-                onClick={() => joinRoom(room)}
-                className={`members-rooms ${room === currentRoom ? 'active' : ''} flex`} key={index}>
-                  <h1 className='cursor-pointer'>{room}</h1>
-                  <span>{user.newMessage[room]}</span>
+        <div className='side-content-wrapper'>
+          <div className='search-section'>
+            <div className='search-wrapper'>
+              <div>
+                <BsSearch size={20} color='#D5DFE5'/>
+              </div>
+             <input onChange={handleSearch} placeholder='Search...'type="text" />
+
+            </div>
+          </div>
+          <div className='people-group-chat'>
+            {user && (
+              <>
+                {rooms && rooms.map((room: any, index: any) => {
+                    return (
+                      <div 
+                      onClick={() => joinRoom(room)}
+                      className={`members-rooms ${room === currentRoom ? 'active' : ''} flex`} key={index}>
+                        <div className='room-inner pl-9 py-6 flex justify-center items-center gap-2'>
+                          <MdGroups size={30}/>
+                          <h1 className='cursor-pointer font-bold'>{room}</h1>
+                        </div>
+                        {room === currentRoom && <span className='border-left-active'></span>}
+                        {room === currentRoom && <span className='triangle'></span>}
+                      </div>
+                    )
+                })}
+                <div className='members-section'>
+                  {members && members.map((member: any) => {
+                    return (
+                      <>
+                      {user._id !== member._id && <div 
+                        onClick={() => handlePrivateMsg(member)}
+                        className={`members-rooms ${member._id === privateMsg?._id ? 'active' : ''} flex`} key={member._id}>
+                        <div className='room-inner pl-8 px-6 py-6 flex justify-center items-center gap-2'>
+                          <div className='relative'>
+                            <img  src={member.picture} alt="avatar" />
+                            <FaCircle className='absolute bottom-0 right-0'size={10} color={member.status ==='online' ? 'green' : 'orange'}/>
+                          </div>
+                          <h1 className='cursor-pointer font-bold'>{member.name}</h1> 
+                        </div>
+                        {member._id === privateMsg?._id && <span className='border-left-active'></span>}
+                        {member._id === privateMsg?._id && <span className='triangle'></span>}
+                      </div>}
+                      </>
+                    )
+                  })}
                 </div>
-              )
-            })}
-            <h1 className='text-5xl font-bold'>Members</h1>
-            {members && members.map((member: any) => {
+              </>
+              )}
+          </div>
+        </div>
+        <ChatBoxContainer>
+          <div className='chatbox-header'>
+            <div className='relative mb-2'>
+              {privateMsg ? (
+                <>
+                <h1 className='text-2xl font-bold'>{privateMsg?.name}</h1>
+                <div className='absolute bottom-0 left-0 items-center flex flex-row gap-2'>
+                <FaCircle className=''size={10} color={privateMsg?.status ==='online' ? 'green' : 'orange'}/>
+                {privateMsg?.status ==='online' ? <span className='chat-status'>Active now</span> : <span className='chat-status'>Offline</span> }
+                </div>
+                </>
+              ) : (
+                <>
+                <h1 className='text-2xl font-bold'>{currentRoom}</h1>
+                <div className='absolute bottom-0 left-0 items-center flex flex-row gap-2'>
+                <FaCircle className=''size={10} color='green'/>
+                <span className='chat-status'>Active now</span>
+                </div>
+                </>
+              )}
+            </div>
+            <div className='chat-header-icons'>
+              <MdOutlineVideocam className='video-icon'/>
+              <HiOutlinePhone className='phone-icon'/>
+            </div>
+          </div>
+          <div className='all-chat-wrapper'>
+            {message && message.map((data: any, index: any) => {
               return (
-                <div 
-                  onClick={() => handlePrivateMsg(member)}
-                  className={`members-rooms ${member._id === privateMsg?._id ? 'active' : ''} flex`} key={member._id}>
-                  <div className='relative'>
-                    <img src={member.picture} alt="avatar" />
-                    <FaCircle className='absolute bottom-0 right-0'size={10} color={member.status ==='online' ? 'green' : 'orange'}/>
-                  </div>
-                  <h1 className='cursor-pointer'>{member.name}</h1> 
-                  {user._id === member?._id && <span>(You)</span>}
-                  {member.status == 'offline' && <span>(Offline)</span>}
+                <div key={index}>
+                {data.messagesByDate.map((text: any) => {
+                  return (
+                    <>
+                    <div className={`chat-text-content ${user?._id === text.from._id ? 'user' : ''}`} key={text._id}>
+                      <div ref={messagesEndRef} className='chat-box-color'>
+                        <div className='chat-text-inner '>
+                          {user?._id !== text.from._id && <img className='user-avatar' src={text.from.picture} alt="avatar" />}
+                          {/* <h1>{user?.name === text.from.name ? 'You' : nickname[0]}:</h1> */}
+                        </div>
+                        <div className='flex chat-hover-wrapper'>
+                          <span className={user?._id !== text.from._id ? 'chat-date-user': 'chat-date'}>{text.date} {text.time}</span>
+                          <div className={`chat-content-wrapper ${user?._id === text.from._id ? 'user' : ''}`}>
+                            <p className='text-md'>{text.content}</p>
+                          </div>
+                        </div>
+                        {/* <p className='text-sm'>{text.time}</p> */}
+                      </div>
+                    </div>
+                    </>
+                  )
+                })}
                 </div>
               )
             })}
           </div>
-          )}
-        </div>
-        <div>
-          <ChatBoxContainer>
-            {message.map((data: any) => {
-              return (
-                <>
-                <div className='chat-wrapper-text' key={data._id}>
-                  <div className='date-wrapper'>
-                    <h1>{data._id}</h1>
-                  </div>
-                </div>
-                {data.messagesByDate.map((text: any,) => {
-                  const nickname = text.from.name.split(' ')
-                  console.log(text)
-                  return (
-                    <div className={`chat-text-content ${user._id === text.from._id ? 'you' : ''}`} key={text._id}>
-                      <div className='chat-box-color'>
-                        <div className='chat-text-inner'>
-                          <img src={text.from.picture} alt="avatar" />
-                          <h1>{user.name === text.from.name ? 'You' : nickname[0]}:</h1>
-                        </div>
-                        <p className='text-md'>{text.content}</p>
-                        <p className='text-sm'>{text.time}</p>
-                      </div>
-                    </div>
-                  )
-                })}
-                </>
-              )
-            })}
-          </ChatBoxContainer>
+          <div>
           <ChatInput>
             <form onSubmit={handleSubmit}>
-              <input onChange={(e) => setMessage(e.target.value)} placeholder='Your Message'type="text" value={messages} disabled={!user}/>
-              <button type='submit' disabled={!user}><FiSend size={30}/></button>
+              <button className='chat-emoji mr-3' type='submit' disabled={!user}><BsEmojiLaughing size={20}/></button>
+              <input onChange={(e) => setMessage(e.target.value)} placeholder='Your message here...'type="text" value={messages} disabled={!user}/>
+              <button className='chat-files mr-3'type='submit' disabled={!user}><ImAttachment size={20}/></button>
+              <button className='chat-send' type='submit' disabled={!user}><FiSend size={20}/></button>
             </form>
           </ChatInput>
-        </div>
+          </div>
+        </ChatBoxContainer>
+      
       </ChatWrapper>
     </ChatContainer>
   )
