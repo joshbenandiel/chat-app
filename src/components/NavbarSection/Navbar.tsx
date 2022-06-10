@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { NavContainer, NavWrapper } from '.'
@@ -11,7 +10,6 @@ import { MdLogout, MdSettings, MdMessage, MdPhone, MdPersonOutline, MdNotificati
 
 export const Navbar = () => {
 
-  const [showDrop, setShowDrop] = useState<boolean>(false)
   const user = useSelector((state: any) => state.user)
   const [logoutUser] = useLogoutUserMutation()
   const navigate = useNavigate()
@@ -19,8 +17,6 @@ export const Navbar = () => {
   const handleLogout = async(e: any) => {
     e.preventDefault()
     await logoutUser(user);
-    setShowDrop(false)
-    
     navigate('/')
   }
 

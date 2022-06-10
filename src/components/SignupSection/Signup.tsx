@@ -21,11 +21,9 @@ export const Signup = () => {
 
   const [selectedFile ,setSelectedFile] = useState<any>()
   const [preview, setPreview] = useState<any>()
-  const [uploadingImg, setUploadingImage] = useState<boolean>(false)
   const [imageUrl, setImageUrl] = useState<string>('')
   const [signUpUser, {isLoading, error}] = useSignUpUserMutation<any>();
   const [imageError, setImageError] = useState<string>('')
-  const [submit, setSubmit] = useState<boolean>(false)
   const navigate = useNavigate()
   const [formData, setFormData] = useState<Type>({
     name: '',
@@ -38,20 +36,14 @@ export const Signup = () => {
   const onSelectFile = (e: any) => {
     setSelectedFile(e.target.files[0])
   }
-  useEffect(() => {
-    if(selectedFile){
-      setPreview(URL.createObjectURL(selectedFile))
-      uploadImage()
-   
-    }
-  },[selectedFile])
+
 
   useEffect(() => {
     setFormData({
       ...formData,
       picture: imageUrl
     })
-  },[imageUrl])
+  },[imageUrl, formData])
 
   const handleSubmit = (e:any) => {
     e.preventDefault()
@@ -80,16 +72,13 @@ export const Signup = () => {
     const data = new FormData()
     data.append('file', selectedFile)
     data.append('upload_preset', 'lk4m0azm')
-    setUploadingImage(true)
     try {
       await axios.post('https://api.cloudinary.com/v1_1/daqygbirz/image/upload', data)
       .then((res: any) => {
         setImageUrl(res.data.url)
       })
-      setUploadingImage(false)
     }
     catch(err){
-      setUploadingImage(false)
       console.log(err)
     }
   }
@@ -97,6 +86,14 @@ export const Signup = () => {
   const handleImage= () => {
     imageRef.current.click()
   }
+
+  useEffect(() => {
+    if(selectedFile){
+      setPreview(URL.createObjectURL(selectedFile))
+      uploadImage()
+   
+    }
+  },[selectedFile, uploadImage])
 
   return (
     <SignUpContainer>

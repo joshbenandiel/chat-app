@@ -20,7 +20,7 @@ export const Chat = () => {
   const user = useSelector((state: any) => state.user)
   const [messages, setMessage] = useState('')
   const dispatch = useDispatch()
-  const [userName, setUserName] = useState()
+
 
 
 
@@ -29,6 +29,11 @@ export const Chat = () => {
     setMembers(payload);
   })
 
+  const getRooms = () => {
+    fetch('https://chat-app-api-22.herokuapp.com/rooms')
+        .then((res) => res.json())
+        .then((data) => setRooms(data))
+  }
  
   useEffect(() => {
     if(user){
@@ -42,11 +47,6 @@ export const Chat = () => {
   },[])
 
 
-  const getRooms = () => {
-    fetch('http://localhost:5001/rooms')
-        .then((res) => res.json())
-        .then((data) => setRooms(data))
-  }
 
 
   const getFomattedDate = () => {

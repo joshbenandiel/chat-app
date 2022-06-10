@@ -1,4 +1,3 @@
-import React from 'react'
 import './App.css';
 import { Routes, Route } from 'react-router-dom'
 import { Home } from './components/HomeSection/Home';
@@ -6,7 +5,6 @@ import { Login } from './components/LoginSection/Login';
 import { Signup } from './components/SignupSection/Signup';
 import { Chat } from './components/ChatSection/Chat';
 import { Navbar } from './components/NavbarSection/Navbar';
-import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { AppContext, socket } from './context/appContext';
 
