@@ -234,6 +234,7 @@ export const ChatWrapper = styled.div<ChatProps>`
     
 
     .all-chat-wrapper {
+      flex-grow: 1;
       overflow-y:auto;
     }
 
