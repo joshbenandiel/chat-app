@@ -150,8 +150,6 @@ export const Chat = () => {
 
   const isOpen = useSelector((state: any) => state.sidebar.isOpen)
   
-  
-  const count = 15;
   return (
     <ChatContainer>
       <ChatWrapper open={isOpen ? 'none' : 'block'} show={isOpen ? 'translateX(-300px)' : 'translateX(70px)'}>

@@ -31,8 +31,6 @@ export const Signup = () => {
     password: '',
   })
 
- 
-  console.log({err: error, load: isLoading})
   const onSelectFile = (e: any) => {
     setSelectedFile(e.target.files[0])
   }
@@ -43,7 +41,7 @@ export const Signup = () => {
       ...formData,
       picture: imageUrl
     })
-  },[imageUrl, formData])
+  },[imageUrl])
 
   const handleSubmit = (e:any) => {
     e.preventDefault()
