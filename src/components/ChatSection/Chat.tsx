@@ -93,9 +93,8 @@ export const Chat = () => {
     }
 
     dispatch(resetNotification(room))
-    if(isOpen === true){
-      dispatch(toggleShow(!isOpen))
-    }
+    dispatch(toggleShow(!isOpen))
+    
    
   }
 
@@ -117,9 +116,8 @@ export const Chat = () => {
     setPrivateMsg(member)
     const roomId = orderIds(user._id, member._id)
     joinRoom(roomId, false)
-    if(isOpen === true){
-      dispatch(toggleShow(!isOpen))
-    }
+    dispatch(toggleShow(!isOpen))
+    
     
     
   }

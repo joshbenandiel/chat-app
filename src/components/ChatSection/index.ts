@@ -53,7 +53,7 @@ export const ChatWrapper = styled.div<ChatProps>`
 
     @media (max-width: 480px){
       display: ${props => props.open};
-      transform: ${props => props.show}
+      transform: ${props => props.show};
     }
 
     .people-group-chat {
@@ -223,13 +223,14 @@ export const ChatWrapper = styled.div<ChatProps>`
     position: relative;
     padding: 30px;
     color: #2C4555;
-    display: ${props => props.open};
     flex-direction: column;
+    display: flex;
     
 
     @media (max-width: 480px){
       width: 100%;
       padding: 10px;
+      display: ${props => props.open};
     }
     
 
