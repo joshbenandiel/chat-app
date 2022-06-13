@@ -23,7 +23,8 @@ export const Chat = () => {
   const [messages, setMessage] = useState('')
   const dispatch = useDispatch()
 
-
+  const isOpen = useSelector((state: any) => state.sidebar.isOpen)
+  
 
 
   const {socket, setMembers, members, setCurrentRoom, currentRoom, setRooms, privateMsg, setPrivateMsg, rooms, setMessages, message} = useContext(AppContext)
@@ -92,7 +93,9 @@ export const Chat = () => {
     }
 
     dispatch(resetNotification(room))
-    dispatch(toggleShow(!isOpen))
+    if(isOpen === true){
+      dispatch(toggleShow(!isOpen))
+    }
    
   }
 
@@ -114,7 +117,9 @@ export const Chat = () => {
     setPrivateMsg(member)
     const roomId = orderIds(user._id, member._id)
     joinRoom(roomId, false)
-    dispatch(toggleShow(!isOpen))
+    if(isOpen === true){
+      dispatch(toggleShow(!isOpen))
+    }
     
     
   }
@@ -148,7 +153,6 @@ export const Chat = () => {
     })
   }, [debounceValue])
 
-  const isOpen = useSelector((state: any) => state.sidebar.isOpen)
   
   return (
     <ChatContainer>

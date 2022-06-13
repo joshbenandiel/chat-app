@@ -7,7 +7,7 @@ import { Chat } from './components/ChatSection/Chat';
 import { Navbar } from './components/NavbarSection/Navbar';
 import { useEffect, useState } from 'react';
 import { AppContext, socket } from './context/appContext';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toggleShow } from './features/showSideBar';
 
 function App() {
@@ -22,8 +22,6 @@ function App() {
 
   const location = useLocation()
   const dispatch = useDispatch()
-  const isOpen = useSelector((state: any) => state.sidebar.isOpen)
-  console.log(location.pathname)
   useEffect(() => {
     dispatch(toggleShow(false))
     
