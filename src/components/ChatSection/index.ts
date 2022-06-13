@@ -375,6 +375,10 @@ export const ChatWrapper = styled.div<ChatProps>`
         justify-content: center;
         align-items: center;
         max-width: 400px;
+
+        @media (max-width: 480px){
+          max-width: 230px;
+        }
       }
     }
 
@@ -392,6 +396,10 @@ export const ChatWrapper = styled.div<ChatProps>`
           align-items: center;
           border-radius: 20px;
           max-width: 400px;
+
+          @media (max-width: 480px){
+          max-width: 230px;
+          }
         }
       }
 
