@@ -14,6 +14,7 @@ import { BsEmojiLaughing } from 'react-icons/bs'
 import { ImAttachment } from 'react-icons/im'
 import { useDebounce } from '../../hooks/debounce'
 import { toggleShow } from '../../features/showSideBar'
+import { MdArrowBackIosNew } from 'react-icons/md'
 
 
 
@@ -148,8 +149,11 @@ export const Chat = () => {
 
   return (
     <ChatContainer>
-      <ChatWrapper>
+      <ChatWrapper open={isOpen ? 'none' : 'block'} show={isOpen ? 'translateX(-300px)' : 'translateX(70px)'}>
         <div className='side-content-wrapper'>
+          <MdArrowBackIosNew 
+            onClick={() => dispatch(toggleShow(!isOpen))}
+            className='chat-back-arrow' size={50} color='black'/>
           <div className='search-section'>
             <div className='search-wrapper'>
               <div>
@@ -201,7 +205,7 @@ export const Chat = () => {
               )}
           </div>
         </div>
-        <ChatBoxContainer>
+        <ChatBoxContainer open={isOpen ? 'block' : 'none'}>
           <div className='chatbox-header'>
             <span 
               onClick={() => dispatch(toggleShow(!isOpen))}

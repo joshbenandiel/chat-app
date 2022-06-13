@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const NavContainer = styled.div`
+export const NavContainer = styled.div<{open: string, show: string}>`
   width: 70px;
   height: 100vh;
   position: absolute;
@@ -13,8 +13,8 @@ export const NavContainer = styled.div`
 
 
   @media (max-width: 375px){
-    display: none;
-    transform: translateX(-100px)
+    display: ${props => props.open};
+    transform: ${props => props.show}
   }
   
 `

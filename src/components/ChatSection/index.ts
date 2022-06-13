@@ -1,5 +1,10 @@
 import styled from 'styled-components'
 
+interface ChatProps  {
+  open: string
+  show?: string
+}
+
 export const ChatContainer = styled.div`
   height: 100vh;
   width: 100%;
@@ -21,19 +26,34 @@ export const ChatContainer = styled.div`
 
 `
 
-export const ChatWrapper = styled.div`
+export const ChatWrapper = styled.div<ChatProps>`
   width: 100%;
   align-items: center;
   display: flex;
+  position: relative;
 
   .side-content-wrapper {
     width: 20em;
     height: 100vh;
     overflow-x: hidden;
 
-    @media (max-width: 375px){
+    .chat-back-arrow {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      cursor: pointer;
+      transform: translateY(-50%);
+      z-index: 1000;
       display: none;
-      transform: translateX(-300px)
+
+      @media (max-width: 375px){
+        display: block;
+      }
+    }
+
+    @media (max-width: 375px){
+      display: ${props => props.open};
+      transform: ${props => props.show}
     }
 
     .people-group-chat {
@@ -193,13 +213,17 @@ export const ChatWrapper = styled.div`
   
 
   `
-  export const ChatBoxContainer = styled.div`
+
+ 
+  export const ChatBoxContainer = styled.div<ChatProps>`
     height: 100vh;
     width: 60%;
     background-color: #fff;
     position: relative;
     padding: 30px;
     color: #2C4555;
+    display: ${props => props.open};
+    
 
     @media (max-width: 375px){
       width: 100%;

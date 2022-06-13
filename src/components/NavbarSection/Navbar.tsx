@@ -20,8 +20,10 @@ export const Navbar = () => {
     navigate('/')
   }
 
+
+  const isOpen = useSelector((state: any) => state.sidebar.isOpen)
   return (
-    <NavContainer>
+    <NavContainer open={isOpen ? 'none' : 'block'} show={isOpen ? 'translateX(-100px)' : 'translateX(0px)'}>
       <NavWrapper>
         <Link to='/'>
           <div className='flex justify-center items-center gap-2 nav-user'>
