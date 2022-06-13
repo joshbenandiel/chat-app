@@ -6,13 +6,14 @@ import { addNotification, resetNotification } from "../../features/userSlice"
 import { useDispatch } from "react-redux"
 import { ChatBoxContainer, ChatContainer, ChatInput, ChatWrapper } from '.'
 import {FaCircle } from 'react-icons/fa'
-import { MdGroups , MdOutlineVideocam} from 'react-icons/md'
+import { MdArrowForwardIos, MdGroups , MdOutlineVideocam} from 'react-icons/md'
 import { BsSearch } from 'react-icons/bs'
 import { FiSend } from 'react-icons/fi'
 import { HiOutlinePhone }  from 'react-icons/hi'
 import { BsEmojiLaughing } from 'react-icons/bs'
 import { ImAttachment } from 'react-icons/im'
 import { useDebounce } from '../../hooks/debounce'
+import { toggleShow } from '../../features/showSideBar'
 
 
 
@@ -141,6 +142,10 @@ export const Chat = () => {
     })
   }, [debounceValue])
 
+  const isOpen = useSelector((state: any) => state.sidebar.isOpen)
+  console.log(isOpen)
+  
+
   return (
     <ChatContainer>
       <ChatWrapper>
@@ -198,7 +203,11 @@ export const Chat = () => {
         </div>
         <ChatBoxContainer>
           <div className='chatbox-header'>
-            <div className='relative mb-2'>
+            <span 
+              onClick={() => dispatch(toggleShow(!isOpen))}
+              className='show-sidebar-arrow'><MdArrowForwardIos size={30}/>
+            </span>
+            <div className='chat-title relative mb-2'>
               {privateMsg ? (
                 <>
                 <h1 className='text-2xl font-bold'>{privateMsg?.name}</h1>
@@ -251,7 +260,6 @@ export const Chat = () => {
               )
             })}
           </div>
-          <div>
           <ChatInput>
             <form onSubmit={handleSubmit}>
               <button className='chat-emoji mr-3' type='submit' disabled={!user}><BsEmojiLaughing size={20}/></button>
@@ -260,7 +268,6 @@ export const Chat = () => {
               <button className='chat-send' type='submit' disabled={!user}><FiSend size={20}/></button>
             </form>
           </ChatInput>
-          </div>
         </ChatBoxContainer>
       
       </ChatWrapper>

@@ -31,6 +31,12 @@ export const SignUpWrapper = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
 
+
+    @media (max-width: 375px){
+      width: 17em;
+      left: 60%;
+    }
+
     .signup-image {
       border: 2px solid #F24444;
     }

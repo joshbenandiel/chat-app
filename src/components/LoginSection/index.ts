@@ -19,6 +19,11 @@ export const LoginWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
+
+  @media (max-width: 375px){
+    width: 17em;
+    left: 60%;
+  }
   
 
 

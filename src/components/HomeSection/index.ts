@@ -23,6 +23,17 @@ export const HomeWrapper = styled.div`
   transform: translate(-50%, -50%);
   padding: 20px;
   border-radius: 12px;
+
+  @media (max-width: 375px){
+    width: 20em;
+    margin-left: 20px;
+  }
+
+  @media (max-width: 375px){
+    h1 {
+      font-size: 3em;
+    }
+  }
   
 
 

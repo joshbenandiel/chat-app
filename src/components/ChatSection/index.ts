@@ -8,6 +8,11 @@ export const ChatContainer = styled.div`
   display: flex;
   margin-left: 140px;
 
+  @media (max-width: 375px){
+    margin: 0px;
+  }
+  
+
 
   &::-webkit-scrollbar {
       width: 10px;
@@ -24,8 +29,12 @@ export const ChatWrapper = styled.div`
   .side-content-wrapper {
     width: 20em;
     height: 100vh;
-    
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
+
+    @media (max-width: 375px){
+      display: none;
+      transform: translateX(-300px)
+    }
 
     .people-group-chat {
       height: 90vh;
@@ -189,13 +198,22 @@ export const ChatWrapper = styled.div`
     width: 60%;
     background-color: #fff;
     position: relative;
-    padding: 30px 30px 30px 30px;
+    padding: 30px;
     color: #2C4555;
+
+    @media (max-width: 375px){
+      width: 100%;
+      padding: 10px;
+    }
     
 
     .all-chat-wrapper {
       height: 83%;
       overflow-y:auto;
+
+      @media (max-width: 375px){
+        height: 75vh;
+      }
     }
 
     .chat-hover-wrapper {
@@ -275,6 +293,18 @@ export const ChatWrapper = styled.div`
      display: flex;
      justify-content: space-between;
      border-bottom: 1px solid #D1DDE6;
+     position: relative;
+
+
+     @media (max-width: 375px) {
+      .chat-title {
+        transform: translateX(50px)
+      }
+     }
+
+     @media (max-width: 375px){
+      height: 10vh;
+     }
     
       h1 {
         padding: 10px 0 25px 0;
@@ -287,6 +317,18 @@ export const ChatWrapper = styled.div`
       }
     }
 
+    
+    .show-sidebar-arrow  {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      display: none;
+
+      @media (max-width: 375px){
+        display: block;
+      }
+    }
 
     .user-avatar {
       height: 40px;
@@ -344,6 +386,11 @@ export const ChatWrapper = styled.div`
     left: 0px;
     padding: 20px 30px;
     /* border-top: 1px solid #D1DDE6; */
+
+
+    @media (max-width: 375px){
+      bottom: 0;
+    }
 
     &::after {
     content: "";

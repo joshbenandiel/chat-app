@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userSlice from './features/userSlice'
+import showSideBar from './features/showSideBar'
 import appApi from './services/appApi'
 
 
@@ -11,6 +12,7 @@ import thunk from 'redux-thunk'
 
 const reducer = combineReducers({
   user: userSlice,
+  sidebar: showSideBar,
   [appApi.reducerPath]: appApi.reducer,
 
 })

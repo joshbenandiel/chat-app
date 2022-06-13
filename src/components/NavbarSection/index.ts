@@ -10,6 +10,12 @@ export const NavContainer = styled.div`
   flex-direction: column;
   background-color: #181F2E;
   z-index: 1000;
+
+
+  @media (max-width: 375px){
+    display: none;
+    transform: translateX(-100px)
+  }
   
 `
 
