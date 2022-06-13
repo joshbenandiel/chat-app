@@ -91,7 +91,7 @@ export const Chat = () => {
     }
 
     dispatch(resetNotification(room))
-
+    dispatch(toggleShow(!isOpen))
    
   }
 
@@ -109,9 +109,13 @@ export const Chat = () => {
   }
 
   const handlePrivateMsg = (member: any) => {
+   
     setPrivateMsg(member)
     const roomId = orderIds(user._id, member._id)
     joinRoom(roomId, false)
+    dispatch(toggleShow(!isOpen))
+    
+    
   }
 
   const messagesEndRef = useRef<any>()
@@ -144,7 +148,7 @@ export const Chat = () => {
   }, [debounceValue])
 
   const isOpen = useSelector((state: any) => state.sidebar.isOpen)
-  console.log(isOpen)
+  
   
 
   return (
@@ -160,7 +164,6 @@ export const Chat = () => {
                 <BsSearch size={20} color='#D5DFE5'/>
               </div>
              <input onChange={handleSearch} placeholder='Search...'type="text" />
-
             </div>
           </div>
           <div className='people-group-chat'>

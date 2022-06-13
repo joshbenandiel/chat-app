@@ -61,6 +61,7 @@ export const ChatWrapper = styled.div<ChatProps>`
       width: 100%;
       background-color: #EBF4FB;
       color: #010B20;
+      overflow: hidden;
 
       .room-notifications {
       height: 20px;
