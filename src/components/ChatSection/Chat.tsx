@@ -32,7 +32,8 @@ export const Chat = () => {
   })
 
   const getRooms = () => {
-    fetch('https://chat-app-api-22.herokuapp.com/rooms')
+    const BASE_URL = process.env.REACT_APP_BACKEND_URL
+    fetch(BASE_URL + '/rooms')
         .then((res) => res.json())
         .then((data) => setRooms(data))
   }
@@ -277,6 +278,8 @@ export const Chat = () => {
           </ChatInput>
         </ChatBoxContainer>
       
+        .
+
       </ChatWrapper>
     </ChatContainer>
   )
