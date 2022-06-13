@@ -209,7 +209,7 @@ export const Chat = () => {
               )}
           </div>
         </div>
-        <ChatBoxContainer open={isOpen ? 'block' : 'none'}>
+        <ChatBoxContainer open={isOpen ? 'flex' : 'none'}>
           <div className='chatbox-header'>
             <span 
               onClick={() => dispatch(toggleShow(!isOpen))}

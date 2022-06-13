@@ -224,7 +224,6 @@ export const ChatWrapper = styled.div<ChatProps>`
     padding: 30px;
     color: #2C4555;
     display: ${props => props.open};
-    display: flex;
     flex-direction: column;
     
 
