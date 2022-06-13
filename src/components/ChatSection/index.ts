@@ -320,8 +320,16 @@ export const ChatWrapper = styled.div<ChatProps>`
 
      @media (max-width: 480px) {
       .chat-title {
-        transform: translateX(50px)
+        transform: translateX(50px);
+
+        h1 {
+          white-space: nowrap; 
+          width: 200px; 
+          overflow: hidden;
+          text-overflow: ellipsis; 
+        }
       }
+      
      }
 
      @media (max-width: 480px){
