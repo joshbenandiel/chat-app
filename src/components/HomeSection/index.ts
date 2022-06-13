@@ -24,12 +24,12 @@ export const HomeWrapper = styled.div`
   padding: 20px;
   border-radius: 12px;
 
-  @media (max-width: 375px){
+  @media (max-width: 480px){
     width: 20em;
     margin-left: 20px;
   }
 
-  @media (max-width: 375px){
+  @media (max-width: 480px){
     h1 {
       font-size: 3em;
     }

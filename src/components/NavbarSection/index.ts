@@ -12,7 +12,7 @@ export const NavContainer = styled.div<{open: string, show: string}>`
   z-index: 1000;
 
 
-  @media (max-width: 375px){
+  @media (max-width: 480px){
     display: ${props => props.open};
     transform: ${props => props.show}
   }

@@ -32,7 +32,7 @@ export const SignUpWrapper = styled.div`
     transform: translate(-50%, -50%);
 
 
-    @media (max-width: 375px){
+    @media (max-width: 480px){
       width: 17em;
       left: 60%;
     }

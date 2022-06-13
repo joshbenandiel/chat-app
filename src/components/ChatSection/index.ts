@@ -13,7 +13,7 @@ export const ChatContainer = styled.div`
   display: flex;
   margin-left: 140px;
 
-  @media (max-width: 375px){
+  @media (max-width: 480px){
     margin: 0px;
   }
   
@@ -46,12 +46,12 @@ export const ChatWrapper = styled.div<ChatProps>`
       z-index: 1000;
       display: none;
 
-      @media (max-width: 375px){
+      @media (max-width: 480px){
         display: block;
       }
     }
 
-    @media (max-width: 375px){
+    @media (max-width: 480px){
       display: ${props => props.open};
       transform: ${props => props.show}
     }
@@ -226,7 +226,7 @@ export const ChatWrapper = styled.div<ChatProps>`
     display: ${props => props.open};
     
 
-    @media (max-width: 375px){
+    @media (max-width: 480px){
       width: 100%;
       padding: 10px;
     }
@@ -236,7 +236,7 @@ export const ChatWrapper = styled.div<ChatProps>`
       height: 83%;
       overflow-y:auto;
 
-      @media (max-width: 375px){
+      @media (max-width: 480px){
         height: 75vh;
       }
     }
@@ -321,13 +321,13 @@ export const ChatWrapper = styled.div<ChatProps>`
      position: relative;
 
 
-     @media (max-width: 375px) {
+     @media (max-width: 480px) {
       .chat-title {
         transform: translateX(50px)
       }
      }
 
-     @media (max-width: 375px){
+     @media (max-width: 480px){
       height: 10vh;
      }
     
@@ -350,7 +350,7 @@ export const ChatWrapper = styled.div<ChatProps>`
       cursor: pointer;
       display: none;
 
-      @media (max-width: 375px){
+      @media (max-width: 480px){
         display: block;
       }
     }
@@ -413,7 +413,7 @@ export const ChatWrapper = styled.div<ChatProps>`
     /* border-top: 1px solid #D1DDE6; */
 
 
-    @media (max-width: 375px){
+    @media (max-width: 480px){
       bottom: 0;
     }
 
