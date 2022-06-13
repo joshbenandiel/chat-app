@@ -224,6 +224,8 @@ export const ChatWrapper = styled.div<ChatProps>`
     padding: 30px;
     color: #2C4555;
     display: ${props => props.open};
+    display: flex;
+    flex-direction: column;
     
 
     @media (max-width: 480px){
@@ -233,12 +235,7 @@ export const ChatWrapper = styled.div<ChatProps>`
     
 
     .all-chat-wrapper {
-      height: 83%;
       overflow-y:auto;
-
-      @media (max-width: 480px){
-        height: 75vh;
-      }
     }
 
     .chat-hover-wrapper {
@@ -297,7 +294,7 @@ export const ChatWrapper = styled.div<ChatProps>`
         width: 32px;
         background-color: #F0F4F8;
         border-radius: 50%;
-        padding: 2px;
+        padding: 2px solid red;;
         text-align: center;
         color: #758A99;
         cursor: pointer;
@@ -414,9 +411,9 @@ export const ChatWrapper = styled.div<ChatProps>`
 
   export const ChatInput = styled.div`
     width: 100%;
-    position: absolute;
+    /* position: absolute;
     bottom: 20px;
-    left: 0px;
+    left: 0px; */
     padding: 20px 30px;
     /* border-top: 1px solid #D1DDE6; */
 
@@ -481,7 +478,7 @@ export const ChatWrapper = styled.div<ChatProps>`
         align-items: center;
         border-radius: 50%;;
         margin-top: 10px;
-        padding: 2px;
+        padding: 2px solid red;;
         color: #fff;
       }
 

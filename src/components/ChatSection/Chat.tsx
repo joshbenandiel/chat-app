@@ -277,8 +277,9 @@ export const Chat = () => {
             </form>
           </ChatInput>
         </ChatBoxContainer>
+
+        
       
-        .
 
       </ChatWrapper>
     </ChatContainer>
